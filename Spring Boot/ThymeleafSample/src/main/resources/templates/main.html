@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf Sample</title>
+</head>
+<body>
+	<h1 th:text="'hello world'">show message</h1>
+	<h1>[[${name}]]</h1>
+	<h1 th:text="'text'">show message</h1>
+	<div th:switch="${name}">
+		<p
+			th:case="JOJO"
+			th:text="|${name}!|"></p>
+		<p
+			th:case="DIO"
+			th:text="|${name}!|"></p>
+		<p
+			th:case="Kira"
+			th:text="|${name}!|"></p>
+		<p th:case="*">not found</p>
+	</div>
+	<span th:text="${member.id}">ID</span>-
+	<span th:text="${member.name}">Name</span>
+	<br>
+	<span th:text="${member['id']}">ID</span>-
+	<span th:text="${member['name']}">Name</span>
+	<br>
+	<th:block th:object="${member}">
+		<span th:text="*{id}">ID</span>-<span th:text="*{name}">Name</span>
+		<br>
+		<span th:text="*{['id']}">ID</span>-<span th:text="*{['name']}">Name</span>
+	</th:block>
+	<hr>
+	<span th:text="${list[0]}">direction</span>
+	<span th:text="${list[1]}">direction</span>
+	<span th:text="${list[2]}">direction</span>
+	<span th:text="${list[3]}">direction</span>
+	<span th:text="${map.Murata.name}">name</span>
+	<span th:text="${map.Uchikawa.id}">name2</span>
+	<div th:each="member:${members}">
+		<p>[[${member.id}]]:[[${member.name}]]</p>
+	</div>
+</body>
+</html>
