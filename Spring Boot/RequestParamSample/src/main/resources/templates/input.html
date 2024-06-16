@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>RequestParam</title>
+</head>
+<body>
+	<h1>入力画面</h1>
+	<hr>
+	<form
+		action="./output.html" th:action="@{/result}"
+		method="get">
+		<label for="get-value">入力値:</label> <input
+			type="text"
+			id="get-value"
+			name="val">
+		<button type="submit">GET送信</button>
+	</form>
+	<br>
+	<form
+		action="./output.html" th:action="@{/result}"
+		method="post">
+		<label for="get-value">入力値:</label> <input
+			type="text"
+			id="get-value"
+			name="val">
+		<button type="submit">POST送信</button>
+	</form>
+</body>
+</html>

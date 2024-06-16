@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>output</h1>
+	<hr>
+	<h2 th:text="${value}">value sent from user input</h2>
+	<a href="./input.html" th:href="@{/show}">back to input form</a>
+</body>
+</html>

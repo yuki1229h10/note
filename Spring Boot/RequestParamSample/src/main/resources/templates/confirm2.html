@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Confirm2</title>
+</head>
+<body>
+	<ul th:object="${sampleForm}">
+		<li>Name:[[*{name}]]</li>
+		<li>Age:[[*{age}]]</li>
+		<li>Birth:[[*{birth}]]</li>
+	</ul>
+</body>
+</html>
