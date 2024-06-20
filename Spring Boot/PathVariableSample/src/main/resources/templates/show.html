@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>URL埋め込みとボタン判別</title>
+</head>
+<body>
+	<div>
+		<h3>
+			<a th:href="@{/function/1}">function1</a>
+		</h3>
+		<h3>
+			<a th:href="@{/function/2}">function2</a>
+		</h3>
+		<h3>
+			<a th:href="@{/function/3}">function3</a>
+		</h3>
+		<form
+			th:action="@{/send}"
+			method="post">
+			<input
+				type="submit"
+				value="ボタンA"
+				name="a"> <input
+				type="submit"
+				value="ボタンB"
+				name="b"> <input
+				type="submit"
+				value="ボタンC"
+				name="c">
+		</form>
+	</div>
+</body>
+</html>
