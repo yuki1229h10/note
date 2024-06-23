@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>相関項目チェック</title>
+</head>
+<body>
+	<h1>@AssertTrueの利用</h1>
+	<form
+		th:action="@{/}"
+		th:object="${sampleForm}"
+		method="post">
+		<p>
+			パスワード<input
+				type="password"
+				th:field="*{password}" />
+		</p>
+		<p>
+			確認用パスワード<input
+				type="password"
+				th:field="*{confirmPassword}" />
+		</p>
+		<p
+			th:if="${#fields.hasErrors('samePassword')}"
+			th:errors="*{samePassword}"
+			style="color: red;">相関項目チェックのエラー</p>
+		<p>
+			<input
+				type="submit"
+				value="チェック" />
+		</p>
+	</form>
+</body>
+</html>
