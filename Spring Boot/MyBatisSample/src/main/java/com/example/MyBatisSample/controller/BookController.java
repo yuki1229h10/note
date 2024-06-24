@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.example.MyBatisSample.entity.Book;
 import com.example.MyBatisSample.mappler.BookMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,32 @@ public class BookController {
 	public String showBook(@PathVariable int id, Model model) {
 		model.addAttribute("message", "詳細表示");
 		model.addAttribute("book", bookMapper.getBookById(id));
+		return "book/success";
+	}
+
+	@GetMapping("/create")
+	public String createBook(Model model) {
+		Book book = new Book();
+		book.setTitle("How to play baseball");
+		book.setAuthor("Stranger");
+		return "book/success";
+	}
+
+	@GetMapping("/update/{id}")
+	public String updateBook(@PathVariable int id, Model model) {
+		Book book = new Book();
+		book.setId(id);
+		book.setTitle("updated");
+		book.setAuthor("updated author");
+		bookMapper.updateBook(book);
+		model.addAttribute("message", "update success");
+		return "book/success";
+	}
+
+	@GetMapping("/delete/{id}")
+	public String deleteBook(@PathVariable int id, Model model) {
+		bookMapper.deleteBookById(id);
+		model.addAttribute("message", "delete success");
 		return "book/success";
 	}
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>捜査結果</title>
+</head>
+<body>
+	<h1 th:text="${message}">メッセージ</h1>
+	<table
+		th:if="${books}"
+		border="1">
+		<thead>
+			<tr>
+				<th>ID</th>
+								<th>タイトル</th>
+								<th>著者</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="book : ${books}">
+		<td th:text="${book.id}">ID</td>
+		</tr>
+		</tbody>
+	</table>
+</body>
+</html>
