@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.BookMapper">
+<mapper namespace="com.example.MyBatisSample.mapper.BookMapper">
 	<select id="getAllBooks"
-		resultType="com.eexample.MyBatisSample.entity.Book">
+		resultType="com.example.MyBatisSample.entity.Book">
 		SELECT id, title, author FROM books ORDER BY id
 	</select>
 	<select id="getBookById"
 		resultType="com.example.MyBatisSample.entity.Book">
-		SELECT id,title,author FROM books WHERE id = #{id}
+		SELECT id, title, author FROM books WHERE id = #{id}
 	</select>
 	<insert id="insertBook"
 		parameterType="com.example.MyBatisSample.entity.Book">
 		INSERT INTO books (title,author) VALUES
-		(#{title},#{author}")
+		(#{title}, #{author})
 	</insert>
 	<update id="updateBook"
 		parameterType="com.example.MyBatisSample.entity.Book">
-		UPDATE books SET title = #{title},author = #{author}
+		UPDATE books SET title = #{title}, author = #{author}
 		WHERE id = #{id}
 	</update>
 	<delete id="deleteBookById" parameterType="int">

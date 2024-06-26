@@ -1,4 +1,4 @@
-package com.example.MyBatisSample.mappler;
+package com.example.MyBatisSample.mapper;
 
 import java.util.List;
 
