@@ -1,24 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.MyBatisSample.mapper.BookMapper">
-	<select id="getAllBooks"
-		resultType="com.example.MyBatisSample.entity.Book">
-		SELECT id, title, author FROM books ORDER BY id
+
+	<resultMap id="BookWithPublisherResult"
+	    type="com.example.MyBatisSample.entity.Book">
+	    <id property="id" column="id" />
+	    <result property="title" column="title" />
+	    <result property="author" column="author" />
+	    <association property="publisher"
+	        javaType="com.example.MyBatisSample.entity.Publisher">
+	        <id property="id" column="publisher_id" />
+	        <result property="name" column="publisher_name" />
+	    </association>
+	</resultMap>
+	
+	<resultMap id="BookWithReviewsResult"
+	    type="com.example.MyBatisSample.entity.Book">
+	    <id property="id" column="id" />
+	    <result property="title" column="title" />
+	    <result property="author" column="author" />
+	    <collection property="reviews" ofType="com.example.MyBatisSample.entity.Review">
+	        <id property="id" column="review_id" />
+	        <result property="bookId" column="book_id" />
+	        <result property="reviewText" column="review_text" />
+	    </collection>
+	</resultMap>
+	
+	<select id="getAllBooks" resultMap="BookWithPublisherResult">
+	    SELECT
+	    b.id, b.title, b.author,
+	    p.id as publisher_id, p.name as publisher_name
+	    FROM books b
+	    INNER JOIN publishers p ON b.publisher_id = p.id
+	    ORDER BY b.id
 	</select>
-	<select id="getBookById"
-		resultType="com.example.MyBatisSample.entity.Book">
-		SELECT id, title, author FROM books WHERE id = #{id}
+	
+	<select id="getBookById" resultMap="BookWithReviewsResult">
+	    SELECT
+	    b.id, b.title, b.author, b.publisher_id,
+	    r.id as review_id, r.book_id, r.review_text
+	    FROM books b
+	    INNER JOIN reviews r ON b.id = r.book_id
+	    WHERE b.id = #{id}
 	</select>
-	<insert id="insertBook"
-		parameterType="com.example.MyBatisSample.entity.Book">
-		INSERT INTO books (title,author) VALUES
-		(#{title}, #{author})
+
+	<insert id="insertBook" parameterType="com.example.MyBatisSample.entity.Book">
+		INSERT INTO books (title, author) VALUES (#{title}, #{author})
 	</insert>
-	<update id="updateBook"
-		parameterType="com.example.MyBatisSample.entity.Book">
+	
+	<update id="updateBook" parameterType="com.example.MyBatisSample.entity.Book">
 		UPDATE books SET title = #{title}, author = #{author}
 		WHERE id = #{id}
 	</update>
+	
 	<delete id="deleteBookById" parameterType="int">
 		DELETE FROM books WHERE id = #{id}
 	</delete>
