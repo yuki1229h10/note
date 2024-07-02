@@ -9,7 +9,7 @@ import com.example.webapp.entity.ToDo;
 
 @Mapper
 public interface ToDoMapper {
-	List<ToDo> selectAll;
+	List<ToDo> selectAll();
 
 	ToDo selectById(@Param("id") Integer id);
 
