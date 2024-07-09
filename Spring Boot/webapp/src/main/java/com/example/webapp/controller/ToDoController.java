@@ -2,6 +2,8 @@ package com.example.webapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,7 +52,11 @@ public class ToDoController {
 	}
 
 	@PostMapping("/save")
-	public String create(ToDoForm form, RedirectAttributes attributes) {
+	public String create(@Validated ToDoForm form, BindingResult bindingResult, RedirectAttributes attributes) {
+		if (bindingResult.hasErrors()) {
+			form.setIsNew(true);
+			return "todo/form";
+		}
 		ToDo ToDo = ToDoHelper.convertToDo(form);
 		toDoService.insertToDo(ToDo);
 		attributes.addFlashAttribute("message", "新しいToDoが作成されました");
@@ -71,10 +77,21 @@ public class ToDoController {
 	}
 
 	@PostMapping("/update")
-	public String update(ToDoForm form, RedirectAttributes attributes) {
+	public String update(@Validated ToDoForm form, BindingResult bindingResult, RedirectAttributes attributes) {
+		if (bindingResult.hasErrors()) {
+			form.setIsNew(false);
+			return "todo/form";
+		}
 		ToDo ToDo = ToDoHelper.convertToDo(form);
 		toDoService.updateToDo(ToDo);
 		attributes.addFlashAttribute("message", "ToDoが更新されました");
+		return "redirect:/todos";
+	}
+
+	@PostMapping("/delete/{id}")
+	public String delete(@PathVariable Integer id, RedirectAttributes attributes) {
+		toDoService.deleteToDo(id);
+		attributes.addFlashAttribute("message", "ToDoが削除されました");
 		return "redirect:/todos";
 	}
 
