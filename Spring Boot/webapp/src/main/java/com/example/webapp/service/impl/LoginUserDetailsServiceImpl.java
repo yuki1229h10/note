@@ -30,7 +30,7 @@ public class LoginUserDetailsServiceImpl implements UserDetailsService {
 
 		if (authentication != null) {
 			return new LoginUser(authentication.getUsername(), authentication.getPassword(),
-					getAuthorityList(authentication.getAuthority()));
+					getAuthorityList(authentication.getAuthority()), authentication.getDisplayname());
 		} else {
 			throw new UsernameNotFoundException(username + " => 指定しているユーザー名は存在しません");
 		}

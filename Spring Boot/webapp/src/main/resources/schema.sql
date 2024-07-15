@@ -19,5 +19,6 @@ CREATE TABLE authentications
 (
    username VARCHAR (50) PRIMARY KEY,
    password VARCHAR (255) NOT NULL,
-   authority role NOT NULL
+   authority role NOT NULL,
+   displayname VARCHAR(50) NOT NULL
 );
